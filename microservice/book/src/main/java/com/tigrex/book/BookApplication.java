@@ -1,15 +1,12 @@
-package com.tigrex.admin;
+package com.tigrex.book;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * (๑乛◡乛๑)
- */
 @SpringBootApplication
-public class AdminApplication {
+public class BookApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AdminApplication.class, args);
+		SpringApplication.run(BookApplication.class, args);
 	}
 }

@@ -1,0 +1,12 @@
+{
+  "groups": [
+    {
+      "name": "spring.datasource.master",
+      "type": "javax.sql.DataSource",
+      "sourceType": "com.tigrex.book.config.DataConfig",
+      "sourceMethod": "masterDataSource()"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}
