@@ -33,7 +33,7 @@ spring:
       repositories:
         enabled: true
 mybatis-plus:
-  mapper-locations: classpath:mappers/*.xml
+  mapper-locations: classpath:mybatis/mappers/*.xml
   type-aliases-package: com.tigrex.admin.entity
   check-config-location: false
 logging:
