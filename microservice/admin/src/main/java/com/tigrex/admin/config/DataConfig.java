@@ -7,12 +7,9 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-@EnableTransactionManagement
 @Configuration
 @MapperScan("com.tigrex.admin.mapper")
 public class DataConfig {
@@ -43,6 +40,5 @@ public class DataConfig {
     public PerformanceInterceptor performanceInterceptor() {
         return new PerformanceInterceptor();
     }
-
 
 }

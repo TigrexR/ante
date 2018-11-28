@@ -7,12 +7,12 @@ import com.tigrex.api.vo.UserVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -23,6 +23,7 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    @Transactional(value = "master")
     @GetMapping(value = "/getUser")
     public Object getUser(
             HttpServletRequest request,
