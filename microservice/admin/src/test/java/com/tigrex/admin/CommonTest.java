@@ -158,15 +158,15 @@ public class CommonTest {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date date = simpleDateFormat.parse("2018-11-21 17:34:24");
-            long ts = date.getTime();
-            data.put("str", String.valueOf(ts));
-            data.put("nowStr", new Date().getTime());
+            data.put("str", date);
+            data.put("nowStr", new Date());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println(data.toString());
+        System.out.println(JSON.toJSONString(data));
         String dataStr = JSON.toJSONString(data, SerializerFeature.WriteDateUseDateFormat);
         System.out.println(dataStr);
+
     }
 
 }

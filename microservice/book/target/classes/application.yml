@@ -27,7 +27,7 @@ spring:
       poolPreparedStatements: true
       maxOpenPreparedStatements: 20
 mybatis-plus:
-  mapper-locations: classpath:mappers/*.xml
+  mapper-locations: classpath:mybatis/mappers/*.xml
   type-aliases-package: com.tigrex.book.entity
   check-config-location: false
 logging:
