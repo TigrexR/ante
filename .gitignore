@@ -1,5 +1,4 @@
-/target/
-*/target/
+**/target
 *.class
 /log/
 !.mvn/wrapper/maven-wrapper.jar
