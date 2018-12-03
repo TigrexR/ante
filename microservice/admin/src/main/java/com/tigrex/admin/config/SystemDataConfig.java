@@ -1,6 +1,5 @@
 package com.tigrex.admin.config;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tigrex.admin.context.SystemData;
 import com.tigrex.admin.entity.SystemConfig;
