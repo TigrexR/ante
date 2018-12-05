@@ -60,8 +60,9 @@ public class CommonTest {
 //        System.out.println(db - (db % 10.0d) + 10.0d);
 //        String a = "12.33%";
 //        System.out.println(a.replace("%", ""));
-        System.out.println(ra.nextDouble() * (1000 - 0) + 0);
-        System.out.println(12.000000000);
+//        System.out.println(ra.nextDouble() * (1000 - 0) + 0);
+//        System.out.println(12.000000000);
+        System.out.println(1.111d / 100);
     }
 
     @Test
