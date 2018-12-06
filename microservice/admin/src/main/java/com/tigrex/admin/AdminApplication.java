@@ -2,6 +2,7 @@ package com.tigrex.admin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -15,6 +16,7 @@ import javax.sql.DataSource;
  * (๑乛◡乛๑)
  */
 @EnableTransactionManagement
+@EnableFeignClients(basePackages = {"com.tigrex.admin.controller"})
 @SpringBootApplication
 public class AdminApplication implements TransactionManagementConfigurer {
 
