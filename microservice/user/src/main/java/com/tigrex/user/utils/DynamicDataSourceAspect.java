@@ -1,7 +1,7 @@
 package com.tigrex.user.utils;
 
-import com.tigrex.user.constant.ContextConst;
-import com.tigrex.user.constant.DataSource;
+import com.tigrex.api.constant.ContextConst;
+import com.tigrex.api.annotation.DataSource;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,7 +21,7 @@ public class DynamicDataSourceAspect {
      * 注解出切入数据库链接转换
      * @param point
      */
-    @Before("@annotation(com.tigrex.user.constant.DataSource)")
+    @Before("@annotation(com.tigrex.api.annotation.DataSource)")
     public void doBefore(JoinPoint point){
         //获得当前访问的class
         Class<?> className = point.getTarget().getClass();
@@ -33,7 +33,7 @@ public class DynamicDataSourceAspect {
         try {
             // 得到访问的方法对象
             Method method = className.getMethod(methodName, argClass);
-            // 判断是否存在@DS注解
+            // 判断是否存在@DataSource注解
             if (method.isAnnotationPresent(DataSource.class)) {
                 DataSource annotation = method.getAnnotation(DataSource.class);
                 // 取出注解中的数据源名
@@ -51,7 +51,7 @@ public class DynamicDataSourceAspect {
      * 在注解处处理事务结束之后的数据链接清除
      * @param point
      */
-    @After("@annotation(com.tigrex.user.constant.DataSource)")
+    @After("@annotation(com.tigrex.api.annotation.DataSource)")
     public void doAfter(JoinPoint point) {
         DataSourceContextHolder.clearDataSource();
     }

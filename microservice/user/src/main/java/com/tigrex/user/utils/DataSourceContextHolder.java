@@ -1,6 +1,6 @@
 package com.tigrex.user.utils;
 
-import com.tigrex.user.constant.ContextConst;
+import com.tigrex.api.constant.ContextConst;
 
 public class DataSourceContextHolder {
 

@@ -1,13 +1,12 @@
 package com.tigrex.user.controller;
 
-import com.tigrex.user.constant.ContextConst;
-import com.tigrex.user.constant.DataSource;
+import com.tigrex.api.constant.ContextConst;
+import com.tigrex.api.annotation.DataSource;
 import com.tigrex.user.utils.DataSourceContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;

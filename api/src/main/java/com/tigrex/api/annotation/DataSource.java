@@ -1,4 +1,6 @@
-package com.tigrex.user.constant;
+package com.tigrex.api.annotation;
+
+import com.tigrex.api.constant.ContextConst;
 
 import java.lang.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.tigrex.user.constant;
+package com.tigrex.api.constant;
 
 public interface ContextConst {
 
