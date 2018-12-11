@@ -56,7 +56,8 @@ public class UserController {
     public Object getBook(
             HttpServletRequest request,
             HttpServletResponse response){
-        return DataSourceContextHolder.getDataSource();
+        User user = userService.getById(1);
+        return user;
     }
 
     @GetMapping(value = "/getAdmin")
