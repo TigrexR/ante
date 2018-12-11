@@ -46,10 +46,9 @@ public class UserController {
             HttpServletResponse response){
         HttpSession session = request.getSession();
         logger.info(session.getId());
-        List<UserVo> userVoList = userService.getUserVoList();
-        System.out.println("1");
+        User user = userService.getById(1);
 
-        return DataSourceContextHolder.getDataSource();
+        return user;
     }
 
     @GetMapping(value = "/getBook")
@@ -68,12 +67,9 @@ public class UserController {
         ExecutorService executorService = Executors.newFixedThreadPool(1000);
         List<Future<String>> futures = new ArrayList<>();
         Set<Callable<String>> set = new LinkedHashSet<>();
-        User teu = userService.getById(1);
-        System.out.println("nima");
         QueryWrapper<User> userWrapper = new QueryWrapper<>();
         userWrapper.eq("name", "1570006");
         User user = userService.getOne(userWrapper);
-        System.out.println("what fuck");
         List<User> userList = userService.list(userWrapper);
         ReentrantLock reentrantLock = new ReentrantLock(false);
         if(userList != null && userList.size() > 0){
