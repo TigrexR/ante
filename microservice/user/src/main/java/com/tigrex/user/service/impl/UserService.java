@@ -2,6 +2,8 @@ package com.tigrex.user.service.impl;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.tigrex.api.annotation.DataSource;
+import com.tigrex.api.constant.ContextConst;
 import com.tigrex.user.entity.User;
 import com.tigrex.user.mapper.UserMapper;
 import com.tigrex.user.service.IUserService;
@@ -18,7 +20,15 @@ public class UserService extends ServiceImpl<BaseMapper<User>, User> implements 
     private UserMapper userMapper;
 
     @Override
+    @DataSource(value = ContextConst.DataSourceType.ADMIN)
     public List<UserVo> getUserVoList() {
         return userMapper.getUserVoList();
+    }
+
+    @Override
+    @DataSource(value = ContextConst.DataSourceType.BOOK)
+    public boolean insert(List<User> userList) {
+        saveBatch(userList);
+        return false;
     }
 }

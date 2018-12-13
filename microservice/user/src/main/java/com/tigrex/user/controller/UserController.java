@@ -31,6 +31,8 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
+    private static List<User> userList;
+
     /**
      * 用户表
      */
@@ -40,15 +42,17 @@ public class UserController {
     private static int i = 0;
 
     @GetMapping(value = "/getUser")
-    @DataSource(value = ContextConst.DataSourceType.USER)
     public Object getUser(
             HttpServletRequest request,
             HttpServletResponse response){
-        HttpSession session = request.getSession();
-        logger.info(session.getId());
-        User user = userService.getById(1);
-
-        return user;
+        List<UserVo> userVos = userService.getUserVoList();
+        List<User> users = new LinkedList<>();
+        for (i = 9279; i < 10000; i++) {
+            User user = new User().setName("1354797" + i);
+            users.add(user);
+        }
+        userService.insert(users);
+        return "hello";
     }
 
     @GetMapping(value = "/getBook")
@@ -61,17 +65,14 @@ public class UserController {
     }
 
     @GetMapping(value = "/getAdmin")
-    @DataSource(value = ContextConst.DataSourceType.ADMIN)
     public Object getAdmin(
             HttpServletRequest request,
             HttpServletResponse response){
-        ExecutorService executorService = Executors.newFixedThreadPool(1000);
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
         List<Future<String>> futures = new ArrayList<>();
         Set<Callable<String>> set = new LinkedHashSet<>();
         QueryWrapper<User> userWrapper = new QueryWrapper<>();
-        userWrapper.eq("name", "1570006");
-        User user = userService.getOne(userWrapper);
-        List<User> userList = userService.list(userWrapper);
+        userList = userService.list(userWrapper);
         ReentrantLock reentrantLock = new ReentrantLock(false);
         if(userList != null && userList.size() > 0){
             for (i = 0; i < userList.size(); i++) {
@@ -115,7 +116,7 @@ public class UserController {
                 e.printStackTrace();
             }
         }
-        return DataSourceContextHolder.getDataSource();
+        return "";
     }
 
 }

@@ -14,4 +14,6 @@ public interface IUserService extends IService<User> {
      */
     List<UserVo> getUserVoList();
 
+    boolean insert(List<User> userList);
+
 }

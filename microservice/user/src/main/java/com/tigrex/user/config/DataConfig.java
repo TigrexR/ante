@@ -83,9 +83,9 @@ public class DataConfig {
      * SQL执行效率插件
      */
 //    @Profile({"dev","test"})// 设置 dev test 环境开启
-    @Bean
-    public PerformanceInterceptor performanceInterceptor() {
-        return new PerformanceInterceptor();
-    }
+//    @Bean
+//    public PerformanceInterceptor performanceInterceptor() {
+//        return new PerformanceInterceptor();
+//    }
 
 }

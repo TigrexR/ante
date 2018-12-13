@@ -23,8 +23,7 @@
     <select id="getUserVoList" resultMap="UserVoMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM user
-        LIMIT 1
+        FROM user WHERE id > 910
     </select>
 
 </mapper>
