@@ -60,6 +60,9 @@ public class UserController {
     public Object getBook(
             HttpServletRequest request,
             HttpServletResponse response){
+        HttpSession session = request.getSession();
+        System.out.println(session.getId());
+
         User user = userService.getById(1);
         return user;
     }

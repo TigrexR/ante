@@ -3,23 +3,40 @@ package com.tigrex.user;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.tigrex.api.vo.UserVo;
+import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.Authenticator;
+import java.net.InetSocketAddress;
+import java.net.ProxySelector;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.StampedLock;
 
 public class CommonTest {
 
     private Random ra = new Random();
+
+    private Lock reentrantLock = new ReentrantLock(false);
+
+    private final StampedLock stampedLock = new StampedLock();
 
     UserVo user = new UserVo().setId(1);
 
@@ -70,7 +87,6 @@ public class CommonTest {
         ExecutorService executorService = Executors.newFixedThreadPool(100);
         List<Future<String>> futures = new ArrayList<>();
         Set<Callable<String>> set = new LinkedHashSet<>();
-        ReentrantLock reentrantLock = new ReentrantLock(false);
         for (int i = 0; i < 1000000; i++) {
             int count = i;
             Callable<String> callable = new Callable<>() {//创建callable
@@ -78,10 +94,8 @@ public class CommonTest {
                 public String call() throws Exception {
                     reentrantLock.lock();
                     try {
-//                        synchronized (user) {
-                            user.setId(user.getId() + 1);
-                            return user.getId().toString();
-//                        }
+                        user.setId(user.getId() + 1);
+                        return user.getId().toString();
                     } catch (RuntimeException e) {
                         System.out.println(e.getMessage());
                         return "";
@@ -168,6 +182,67 @@ public class CommonTest {
         String dataStr = JSON.toJSONString(data, SerializerFeature.WriteDateUseDateFormat);
         System.out.println(dataStr);
 
+    }
+
+    @Test
+    public void quartzTest(){
+        String cron = "0 30 11 * * ?";
+        Date afterDate = new Date(new Date().getTime() + 600000);
+        SimpleDateFormat ymdformat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat allformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String[] a = cron.split(" ");
+        int hc = Integer.parseInt(a[2]);
+        int mc = Integer.parseInt(a[1]);
+        String quartzTime = ymdformat.format(new Date());
+        try {
+            Date quartzDate = allformat.parse(quartzTime + " " + hc + ":" + mc + ":" + "00");
+            if(afterDate.after(quartzDate)){
+                //那么就用新的时间去处理
+            } else {
+                //那么就用原本时间处理
+            }
+            Date date = allformat.parse("2018-12-12" + " 23:59:59");
+//            System.out.println(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        double f = 111231.5585;
+        BigDecimal bg = new BigDecimal(f);
+        double f1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        System.out.println(f1);
+    }
+
+    @Test
+    public void httpClintTest(){
+        HttpClient client = HttpClient.newBuilder()
+                .version(HttpClient.Version.HTTP_2)
+                .followRedirects(HttpClient.Redirect.NORMAL)
+                .proxy(ProxySelector.of(new InetSocketAddress("www-proxy.com", 8080)))
+                .authenticator(Authenticator.getDefault())
+                .build();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://openjdk.java.net/"))
+                .timeout(Duration.ofMinutes(1))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.noBody())
+                .build();
+//        HttpResponse<String> response = null;
+//        try {
+//            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+//            System.out.println(response.statusCode());
+//            System.out.println(response.body());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(response -> {
+                    System.out.println(response.statusCode());
+                    return response;
+                })
+                .thenApply(HttpResponse::body)
+                .thenAccept(System.out::println);
     }
 
 }
