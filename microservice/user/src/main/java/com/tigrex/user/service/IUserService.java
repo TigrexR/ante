@@ -16,4 +16,8 @@ public interface IUserService extends IService<User> {
 
     boolean insert(List<User> userList);
 
+    boolean insertAdmin(User user);
+    boolean insertBook(User user);
+    boolean insertUser(User user);
+
 }

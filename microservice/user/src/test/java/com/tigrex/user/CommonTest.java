@@ -2,6 +2,8 @@ package com.tigrex.user;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.tigrex.api.vo.UserVo;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
@@ -243,6 +245,22 @@ public class CommonTest {
                 })
                 .thenApply(HttpResponse::body)
                 .thenAccept(System.out::println);
+    }
+
+    @Test
+    public void sortTest(){
+        List<UserVo> userVos = Lists.newArrayList(
+                new UserVo().setId(1).setAge(13),
+                new UserVo().setId(1).setAge(12),
+                new UserVo().setId(2).setAge(13),
+                new UserVo().setId(2).setAge(12),
+                new UserVo().setId(2).setAge(17)
+        );
+//        HashMap<String, String> map = Maps.newHashMap();
+//        LinkedList<UserVo> UserVoList = Lists.newLinkedList();
+        userVos.sort(Comparator.comparing(UserVo::getId)
+                .thenComparing(UserVo::getAge));
+        System.out.println(userVos);
     }
 
 }
