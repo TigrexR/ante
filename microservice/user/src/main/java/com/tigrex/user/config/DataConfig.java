@@ -73,16 +73,28 @@ public class DataConfig {
         return dynamicDataSource;
     }
 
+    /**
+     * user数据库事物管理器
+     * @return
+     */
     @Bean(name = "transactionManagerUser")
     public PlatformTransactionManager transactionManagerUser () {
         return new DataSourceTransactionManager(userDataSource());
     }
 
+    /**
+     * book数据库事物管理器
+     * @return
+     */
     @Bean(name = "transactionManagerBook")
     public PlatformTransactionManager transactionManagerBook () {
         return new DataSourceTransactionManager(bookDataSource());
     }
 
+    /**
+     * admin数据库事物管理器
+     * @return
+     */
     @Bean(name = "transactionManagerAdmin")
     public PlatformTransactionManager transactionManagerAdmin () {
         return new DataSourceTransactionManager(adminDataSource());
