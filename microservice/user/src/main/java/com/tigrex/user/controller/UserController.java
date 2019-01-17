@@ -61,7 +61,10 @@ public class UserController {
             HttpServletRequest request,
             HttpServletResponse response){
         HttpSession session = request.getSession();
-        System.out.println(session.getId());
+        System.out.println(session.getAttribute("PG24"));
+//        session.setAttribute("PG24", "Pacers");
+//        System.out.println(session.getId());
+//        session.invalidate();
 
         User user = userService.getById(1);
         return user;
