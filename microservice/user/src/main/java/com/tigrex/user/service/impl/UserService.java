@@ -36,7 +36,9 @@ public class UserService extends ServiceImpl<BaseMapper<User>, User> implements 
     @Override
     @Transactional(value = "transactionManagerAdmin")
     @DataSource(value = ContextConst.DataSourceType.ADMIN)
-    public boolean insertAdmin(User user) { return save(user); }
+    public boolean insertAdmin(User user) {
+        return save(user);
+    }
 
     @Override
     @Transactional(value = "transactionManagerBook")
