@@ -6,7 +6,9 @@ import com.tigrex.user.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,6 +47,12 @@ public class UserController {
     public Object getBook(
             HttpServletRequest request,
             HttpServletResponse response){
+        HttpSession session = request.getSession();
+        System.out.println(session.getAttribute("PG24"));
+//        session.setAttribute("PG24", "Pacers");
+//        System.out.println(session.getId());
+//        session.invalidate();
+
         User user = userService.getById(1);
         return user;
     }
@@ -87,9 +95,12 @@ public class UserController {
         return "";
     }
 
-    public static synchronized int getKValue(){
-        k++;
-        return k;
+    @RequestMapping(value = "/dataSource")
+    public void dataSource() throws RuntimeException{
+        User user = new User().setId(1).setAge(13).setName("george");
+        userService.insertAdmin(user);
+        userService.insertBook(user);
+        userService.insertUser(user);
     }
 
 }

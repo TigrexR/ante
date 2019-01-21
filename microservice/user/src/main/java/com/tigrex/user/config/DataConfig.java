@@ -10,6 +10,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -80,6 +82,33 @@ public class DataConfig {
         dataSourceMap.put(ContextConst.DataSourceType.PHONE.name(), phoneDataSource());
         dynamicDataSource.setTargetDataSources(dataSourceMap);
         return dynamicDataSource;
+    }
+
+    /**
+     * user数据库事物管理器
+     * @return
+     */
+    @Bean(name = "transactionManagerUser")
+    public PlatformTransactionManager transactionManagerUser () {
+        return new DataSourceTransactionManager(userDataSource());
+    }
+
+    /**
+     * book数据库事物管理器
+     * @return
+     */
+    @Bean(name = "transactionManagerBook")
+    public PlatformTransactionManager transactionManagerBook () {
+        return new DataSourceTransactionManager(bookDataSource());
+    }
+
+    /**
+     * admin数据库事物管理器
+     * @return
+     */
+    @Bean(name = "transactionManagerAdmin")
+    public PlatformTransactionManager transactionManagerAdmin () {
+        return new DataSourceTransactionManager(adminDataSource());
     }
 
     /**

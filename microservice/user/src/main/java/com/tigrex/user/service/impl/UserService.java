@@ -10,6 +10,7 @@ import com.tigrex.user.service.IUserService;
 import com.tigrex.api.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,4 +32,27 @@ public class UserService extends ServiceImpl<BaseMapper<User>, User> implements 
         saveBatch(userList);
         return false;
     }
+
+    @Override
+    @Transactional(value = "transactionManagerAdmin")
+    @DataSource(value = ContextConst.DataSourceType.ADMIN)
+    public boolean insertAdmin(User user) {
+        return save(user);
+    }
+
+    @Override
+    @Transactional(value = "transactionManagerBook")
+    @DataSource(value = ContextConst.DataSourceType.BOOK)
+    public boolean insertBook(User user) {
+        return save(user);
+    }
+
+    @Override
+    @Transactional(value = "transactionManagerUser")
+    @DataSource(value = ContextConst.DataSourceType.USER)
+    public boolean insertUser(User user) {
+        return save(user);
+    }
+
+
 }

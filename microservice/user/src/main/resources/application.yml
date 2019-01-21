@@ -1,5 +1,14 @@
 server:
   port: 9002
+tomcat:
+  connection-timeout: 10000
+  acceptor-thread-count: 4
+  min-spare-threads: 100
+  max-spare-threads: 300
+  accept-count: 200
+  max-connections: 800
+  max-threads: 500
+  protocol: org.apache.coyote.http11.Http11AprProtocol
 spring:
   redis:
     host: 192.168.126.132
