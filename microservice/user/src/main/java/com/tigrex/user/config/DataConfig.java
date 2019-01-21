@@ -23,29 +23,41 @@ public class DataConfig {
      * 用户数据源
      * @return
      */
-    @Bean(name = "userDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.user")
-    public DataSource userDataSource(){
-        return new DruidDataSource();
-    }
+//    @Bean(name = "userDataSource")
+//    @ConfigurationProperties(prefix = "spring.datasource.user")
+//    public DataSource userDataSource(){
+//        return new DruidDataSource();
+//    }
 
     /**
      * 后台数据源
      * @return
      */
-    @Bean(name = "adminDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.admin")
-    public DataSource adminDataSource(){
-        return new DruidDataSource();
-    }
+//    @Bean(name = "adminDataSource")
+//    @ConfigurationProperties(prefix = "spring.datasource.admin")
+//    public DataSource adminDataSource(){
+//        return new DruidDataSource();
+//    }
 
     /**
      * 书本数据源
      * @return
      */
-    @Bean(name = "bookDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.book")
-    public DataSource bookDataSource(){
+//    @Bean(name = "bookDataSource")
+//    @ConfigurationProperties(prefix = "spring.datasource.book")
+//    public DataSource bookDataSource(){
+//        return new DruidDataSource();
+//    }
+
+    @Bean(name = "testDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.test")
+    public DataSource testDataSource(){
+        return new DruidDataSource();
+    }
+
+    @Bean(name = "phoneDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.phone")
+    public DataSource phoneDataSource(){
         return new DruidDataSource();
     }
 
@@ -60,13 +72,12 @@ public class DataConfig {
     public DataSource dynamicDataSource() {
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
         //配置默认数据源
-        dynamicDataSource.setDefaultTargetDataSource(userDataSource());
+        dynamicDataSource.setDefaultTargetDataSource(testDataSource());
 
         //配置多数据源
         Map<Object, Object> dataSourceMap = new HashMap();
-        dataSourceMap.put(ContextConst.DataSourceType.USER.name(), userDataSource());
-        dataSourceMap.put(ContextConst.DataSourceType.ADMIN.name(), adminDataSource());
-        dataSourceMap.put(ContextConst.DataSourceType.BOOK.name(), bookDataSource());
+        dataSourceMap.put(ContextConst.DataSourceType.TEST.name(), testDataSource());
+        dataSourceMap.put(ContextConst.DataSourceType.PHONE.name(), phoneDataSource());
         dynamicDataSource.setTargetDataSources(dataSourceMap);
         return dynamicDataSource;
     }

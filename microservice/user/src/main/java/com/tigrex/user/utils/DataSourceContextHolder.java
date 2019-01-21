@@ -4,7 +4,7 @@ import com.tigrex.api.constant.ContextConst;
 
 public class DataSourceContextHolder {
 
-    public static final ContextConst.DataSourceType DEFAULT_DATASOURCE = ContextConst.DataSourceType.USER;
+    public static final ContextConst.DataSourceType DEFAULT_DATASOURCE = ContextConst.DataSourceType.TEST;
 
     private static final ThreadLocal<String> contextHolder = new ThreadLocal<>();
 

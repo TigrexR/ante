@@ -20,13 +20,13 @@ public class UserService extends ServiceImpl<BaseMapper<User>, User> implements 
     private UserMapper userMapper;
 
     @Override
-    @DataSource(value = ContextConst.DataSourceType.ADMIN)
+    @DataSource(value = ContextConst.DataSourceType.TEST)
     public List<UserVo> getUserVoList() {
         return userMapper.getUserVoList();
     }
 
     @Override
-    @DataSource(value = ContextConst.DataSourceType.BOOK)
+    @DataSource(value = ContextConst.DataSourceType.TEST)
     public boolean insert(List<User> userList) {
         saveBatch(userList);
         return false;
