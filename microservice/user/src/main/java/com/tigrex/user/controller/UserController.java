@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -73,10 +74,6 @@ public class UserController {
                     @Override
                     public String call() throws Exception {
                         try {
-                            int num = getKValue();
-                            User baseUser = userList.get(num);
-                            String phoneHead = baseUser.getName();
-                            int ron = num % 16;
                             return "";
                         } catch (RuntimeException e) {
                             System.out.println(e.getMessage());
